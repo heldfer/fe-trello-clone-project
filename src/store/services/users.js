@@ -1,4 +1,5 @@
-import feathersClient, { makeServicePlugin, BaseModel } from '../../feathers-client'
+import { makeServicePlugin, BaseModel } from '../feathersVuex'
+import feathersClient from '../../feathers-client'
 
 class User extends BaseModel {
   constructor(data, options) {
