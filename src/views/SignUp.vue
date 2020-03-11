@@ -23,9 +23,14 @@
                 <v-toolbar-title>Sign Up</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form
+                  v-model="valid"
+                  @keydown.prevent.enter
+                  @submit.prevent="signUp"
+                >
                   <v-text-field
-                    v-model="username"
+                    v-model="user.userName"
+                    :rules="rules.required"
                     label="Username"
                     name="username"
                     prepend-icon="person"
@@ -33,42 +38,44 @@
                   />
 
                   <v-text-field
-                    v-model="imageUrl"
+                    v-model="user.imageUrl"
+                    :rules="rules.required"
                     id="imageUrl"
                     label="Image url"
-                    name="avatar"
+                    name="imageUrl"
                     prepend-icon="image"
                     type="text"
                   />
 
                   <v-text-field
-                    v-model="password"
+                    v-model="user.password"
+                    :rules="rules.required"
                     id="password"
                     label="Password"
                     name="password"
                     prepend-icon="lock"
                     type="password"
-                    ,
-                    required
                   />
 
                   <v-text-field
-                    v-model="confirmPassword"
+                    v-model="user.confirmPassword"
+                    :rules="rules.confirmPassword"
                     id="confirmPassword"
                     label="Confirm Password"
                     name="confirmPassword"
                     prepend-icon="lock"
                     type="password"
-                    required
                   />
+                  <v-spacer />
+                  <v-btn
+                    :disabled="!valid"
+                    type="submit"
+                    color="primary"
+                  >
+                    Sign Up
+                  </v-btn>
                 </v-form>
               </v-card-text>
-              <v-card-actions>
-                <v-spacer />
-                <v-btn color="primary">
-                  Sign Up
-                </v-btn>
-              </v-card-actions>
             </v-card>
           </v-col>
         </v-row>
@@ -79,13 +86,22 @@
 
 <script>
 export default {
-  name: 'SignUp',
-  data: () => ({
-    userName: '',
-    password: '',
-    confirmPassword: '',
-    avatar: ''
-  })
+  name: "SignUp",
+  data: vm => ({
+    valid: true,
+    user: { userName: "", password: "", confirmPassword: "", imageUrl: "" },
+    rules: {
+      required: [value => !!value.trim().length || "Is required"],
+      confirmPassword: [confirmPassword => vm.user.password === confirmPassword || "Passwords don't match"]
+    }
+  }),
+  methods: {
+    signUp() {
+      if (this.valid) {
+        console.log("Sign Up");
+      }
+    }
+  }
 };
 </script>
 

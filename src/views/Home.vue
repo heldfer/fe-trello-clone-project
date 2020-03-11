@@ -55,7 +55,7 @@
       color="indigo"
       app
     >
-      <span class="white--text">&copy; 2019</span>
+      <span class="white--text">&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
@@ -63,7 +63,10 @@
 <script>
 export default {
   props: {
-    source: String
+    source: {
+      type: String,
+      default: ''
+    }
   },
   data: () => ({
     drawer: null
