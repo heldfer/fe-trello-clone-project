@@ -1,5 +1,4 @@
-import { makeServicePlugin, BaseModel } from '../feathersVuex'
-import feathersClient from '../../feathers-client'
+import feathersClient, { makeServicePlugin, BaseModel } from '../../feathers-client'
 
 class User extends BaseModel {
   constructor(data, options) {
@@ -10,8 +9,9 @@ class User extends BaseModel {
   // Define default properties here
   static instanceDefaults() {
     return {
-      email: '',
-      password: ''
+      username: '',
+      password: '',
+      imageUrl: ''
     }
   }
 }

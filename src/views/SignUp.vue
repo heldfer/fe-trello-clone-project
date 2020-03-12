@@ -24,6 +24,7 @@
               </v-toolbar>
               <v-card-text>
                 <v-form
+                  v-if="!loading"
                   v-model="valid"
                   @keydown.prevent.enter
                   @submit.prevent="signUp"
@@ -67,13 +68,20 @@
                     type="password"
                   />
                   <v-spacer />
-                  <v-btn
-                    :disabled="!valid"
-                    type="submit"
+                  <v-row class="justify-center">
+                    <v-btn
+                      :disabled="!valid"
+                      type="submit"
+                      color="primary"
+                    >
+                      Sign Up
+                    </v-btn>
+                  </v-row>
+                  <v-progress-circular
+                    v-if="loading"
+                    indeterminate
                     color="primary"
-                  >
-                    Sign Up
-                  </v-btn>
+                  />
                 </v-form>
               </v-card-text>
             </v-card>
@@ -85,6 +93,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: "SignUp",
   data: vm => ({
@@ -92,13 +102,25 @@ export default {
     user: { userName: "", password: "", confirmPassword: "", imageUrl: "" },
     rules: {
       required: [value => !!value.trim().length || "Is required"],
-      confirmPassword: [confirmPassword => vm.user.password === confirmPassword || "Passwords don't match"]
+      confirmPassword: [
+        confirmPassword =>
+          vm.user.password === confirmPassword || "Passwords don't match"
+      ]
     }
   }),
+  computed: {
+    ...mapState('users', { loading: 'isCreatePensing' }),
+  },
   methods: {
-    signUp() {
+    async signUp() {
       if (this.valid) {
-        console.log("Sign Up");
+        try {
+          const { User } = this.$FeathersVuex.api;
+          const newUser = await new User(this.user).save();
+          console.log(newUser)
+        } catch (error) {
+          console.error(error)
+        }
       }
     }
   }
