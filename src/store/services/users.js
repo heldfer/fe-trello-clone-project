@@ -11,7 +11,8 @@ class User extends BaseModel {
     return {
       username: '',
       password: '',
-      imageUrl: ''
+      imageUrl: '',
+      displayName: ''
     }
   }
 }

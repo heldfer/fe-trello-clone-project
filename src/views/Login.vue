@@ -23,29 +23,48 @@
                 <v-toolbar-title>Login Trello</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form
+                  v-if="!loading"
+                  v-model="valid"
+                  @keydown.prevent.enter
+                  @submit.prevent="signIn"
+                >
                   <v-text-field
-                    label="Login"
-                    name="login"
+                    v-model="user.username"
+                    :rules="rules.required"
+                    label="Username"
+                    name="username"
                     prepend-icon="person"
                     type="text"
                   />
 
                   <v-text-field
+                    v-model="user.password"
+                    :rules="rules.required"
                     id="password"
                     label="Password"
                     name="password"
                     prepend-icon="lock"
                     type="password"
                   />
+
+                  <v-spacer />
+                  <v-row class="justify-center">
+                    <v-btn
+                      :disabled="!valid"
+                      type="submit"
+                      color="primary"
+                    >
+                      Sign In
+                    </v-btn>
+                  </v-row>
+                  <v-progress-circular
+                    v-if="loading"
+                    indeterminate
+                    color="primary"
+                  />
                 </v-form>
               </v-card-text>
-              <v-card-actions>
-                <v-spacer />
-                <v-btn color="primary">
-                  Login
-                </v-btn>
-              </v-card-actions>
             </v-card>
           </v-col>
         </v-row>
@@ -55,8 +74,37 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
-  name: 'LoginPage'
+  name: 'Login',
+  data: vm => ({
+    valid: true,
+    user: { username: "", password: "" },
+    rules: {
+      required: [value => !!value.trim().length || "Is required"]
+    }
+  }),
+  computed: {
+    ...mapState('auth', { loading: 'isAuthenticatePending' }),
+  },
+  methods: {
+    ...mapActions('auth', ['authenticate']),
+    async signIn() {
+      if (this.valid) {
+        try {
+          await this.authenticate({
+            strategy: 'local',
+            username: this.user.username,
+            password: this.user.password
+          })
+          this.$router.push('/')
+        } catch (error) {
+          console.error('Authentication error', error);
+        }
+      }
+    }
+  }
 };
 </script>
 
