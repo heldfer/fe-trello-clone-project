@@ -1,14 +1,23 @@
 <template>
-  <router-view />
+  <component :is="layout">
+    <router-view />
+  </component>
 </template>
 
 <script>
-import Login from '@/views/Login'
+import Default from '@/Layouts/Default'
+import NoSidebar from '@/Layouts/NoSidebar'
 
 export default {
   name: "App",
-  data: () => ({
-    //
-  })
+  components: {
+    Default,
+    NoSidebar
+  },
+  computed: {
+    layout () {
+      return `${this.$route.meta.layout || 'default'}`
+    }
+  }
 };
 </script>

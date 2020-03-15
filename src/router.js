@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home'
+import Dashboard from './views/Dashboard'
 import SignUp from './views/SignUp'
 import Login from './views/Login'
 
@@ -11,18 +11,20 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'dashboard',
+      component: Dashboard
     },
     {
       path: '/signup',
       name: 'signup',
-      component: SignUp
+      component: SignUp,
+      meta: { layout: 'no-sidebar'}
     },
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      meta: { layout: 'no-sidebar'}
     }
   ]
 })
