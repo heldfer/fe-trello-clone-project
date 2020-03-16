@@ -9,7 +9,7 @@ class User extends BaseModel {
   // Define default properties here
   static instanceDefaults() {
     return {
-      username: '',
+      userName: '',
       password: '',
       imageUrl: '',
       displayName: ''

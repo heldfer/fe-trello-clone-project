@@ -55,13 +55,20 @@
                 >
                   Sign In
                 </v-btn>
+                <v-btn
+                  type="button"
+                  color="secondary"
+                  @click="$router.push('/signup')"
+                >
+                  Sign UP
+                </v-btn>
               </v-row>
-              <v-progress-circular
-                v-if="loading"
-                indeterminate
-                color="primary"
-              />
             </v-form>
+            <v-progress-circular
+              v-if="loading"
+              indeterminate
+              color="primary"
+            />
           </v-card-text>
         </v-card>
       </v-col>
@@ -93,7 +100,7 @@ export default {
             strategy: 'local',
             ...this.user
           })
-          this.$router.push('dashboard')
+          this.$router.push('/')
         } catch (error) {
           console.error('Authentication error', error);
         }

@@ -10,7 +10,9 @@
     >
       <v-icon>{{ open ? 'menu_open' : 'menu' }}</v-icon>
     </v-btn>
-    <v-toolbar-title>{{ name }}</v-toolbar-title>
+    <v-toolbar-title class="capitalize">
+      {{ $route.name }}
+    </v-toolbar-title>
   </v-app-bar>
 </template>
 
@@ -18,10 +20,6 @@
 export default {
   name: 'Header',
   props: {
-    name: {
-      type: String,
-      default: ''
-    },
     open: {
       type: Boolean,
       default: true
@@ -29,3 +27,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.capitalize {
+  text-transform: capitalize;
+}
+</style>

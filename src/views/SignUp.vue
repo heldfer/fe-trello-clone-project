@@ -28,10 +28,19 @@
               @submit.prevent="signUp"
             >
               <v-text-field
-                v-model="user.userName"
+                v-model="user.username"
                 :rules="rules.required"
                 label="Username"
                 name="username"
+                prepend-icon="person"
+                type="text"
+              />
+
+              <v-text-field
+                v-model="user.displayName"
+                :rules="rules.required"
+                label="Display Name"
+                name="displayName"
                 prepend-icon="person"
                 type="text"
               />
@@ -75,12 +84,12 @@
                   Sign Up
                 </v-btn>
               </v-row>
-              <v-progress-circular
-                v-if="loading"
-                indeterminate
-                color="primary"
-              />
             </v-form>
+            <v-progress-circular
+              v-if="loading"
+              indeterminate
+              color="primary"
+            />
           </v-card-text>
         </v-card>
       </v-col>
@@ -95,7 +104,7 @@ export default {
   name: "SignUp",
   data: vm => ({
     valid: true,
-    user: { userName: "", password: "", confirmPassword: "", imageUrl: "" },
+    user: { username: "", password: "", confirmPassword: "", imageUrl: "", displayName: "" },
     rules: {
       required: [value => !!value.trim().length || "Is required"],
       confirmPassword: [
@@ -113,7 +122,7 @@ export default {
         try {
           const { User } = this.$FeathersVuex.api;
           const newUser = await new User(this.user).save();
-          console.log(newUser);
+          this.$router.push('/login')
         } catch (error) {
           console.error(error);
         }
