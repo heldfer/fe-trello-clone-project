@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Dashboard from './views/Dashboard'
 import SignUp from './views/SignUp'
 import Login from './views/Login'
+import store from './store'
 
 Vue.use(Router);
 
@@ -12,7 +13,14 @@ export default new Router({
     {
       path: '/',
       name: 'dashboard',
-      component: Dashboard
+      component: Dashboard,
+      beforeEnter (to, from, next) {
+        if (!store.getters['auth/isAuthenticated']) {
+          next('/login')
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/signup',
