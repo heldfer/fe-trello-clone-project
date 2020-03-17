@@ -114,7 +114,7 @@ export default {
     }
   }),
   computed: {
-    ...mapState("users", { loading: "isCreatePensing" })
+    ...mapState("users", { loading: "isCreatePending" })
   },
   methods: {
     async signUp() {
