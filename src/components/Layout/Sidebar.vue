@@ -3,15 +3,27 @@
     v-model="open"
     app
   >
-    <v-list dense>
-      <v-list-item :to="{ name: 'dashboard' }">
-        <v-list-item-action>
-          <v-icon>home</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>Dashboard</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+    <v-list
+      nav
+      dense
+    >
+      <v-list-item-group
+        v-model="model"
+      >
+        <v-list-item
+          v-for="(menuItem, i) in menus"
+          :key="i"
+          :to="{ name: menuItem.path }"
+          link
+        >
+          <v-list-item-action>
+            <v-icon>{{ menuItem.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{ menuItem.label }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -24,6 +36,21 @@ export default {
       type: Boolean,
       default: true
     }
-  }
+  },
+  data: () => ({
+    model: 0,
+    menus: [
+      {
+        icon: "home",
+        label: "Dashboard",
+        path: "dashboard"
+      },
+      {
+        icon: "table_chart",
+        label: "Boards",
+        path: "boards"
+      },
+    ]
+  })
 };
 </script>

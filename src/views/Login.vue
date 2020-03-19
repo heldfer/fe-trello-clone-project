@@ -100,7 +100,7 @@ export default {
             strategy: 'local',
             ...this.user
           })
-          this.$router.push('/')
+          this.$router.push('/dashboard')
         } catch (error) {
           console.error('Authentication error', error);
         }
