@@ -46,6 +46,10 @@ export default new Router({
       name: 'login',
       component: Login,
       meta: { layout: 'no-sidebar'}
+    },
+    {
+      path: '*',
+      redirect: '/dashboard'
     }
   ]
 })
