@@ -3,7 +3,45 @@
     class="fill-height"
     fluid
   >
-    {{ boards }}
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <v-row dense>
+        <v-col
+          v-for="board in boards"
+          :key="board._id"
+          cols="3"
+        >
+          <v-card>
+            <v-img
+              :src="board.background"
+              class="white--text align-end"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              height="200px"
+            >
+              <v-card-title v-text="board.name" />
+            </v-img>
+
+            <!-- <v-card-actions>
+                  <v-spacer />
+
+                  <v-btn icon>
+                    <v-icon>mdi-heart</v-icon>
+                  </v-btn>
+
+                  <v-btn icon>
+                    <v-icon>mdi-bookmark</v-icon>
+                  </v-btn>
+
+                  <v-btn icon>
+                    <v-icon>mdi-share-variant</v-icon>
+                  </v-btn>
+            </v-card-actions>-->
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-row>
     <v-row
       align="center"
       justify="center"
@@ -14,14 +52,6 @@
         max-width="400"
         outlined
       >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-card-title>
-            Create a new Board
-          </v-card-title>
-        </v-row>
         <v-expand-transition>
           <div class="text-center">
             <v-divider />
@@ -72,35 +102,41 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions, mapState } from "vuex";
 
 export default {
-  name: 'Boards',
+  name: "Boards",
   data: () => ({
     creating: false,
     show: true,
     valid: false,
     board: {
-      name: '',
-      background: ''
+      name: "",
+      background: ""
     },
     rules: {
       required: [value => !!value.trim().length || "Is required"]
     }
   }),
   computed: {
-    ...mapGetters('boards', { findBoards: 'find' } ),
-    boards () {
-      return this.findBoards().data
+    ...mapGetters("boards", { findBoardsInStore: "find" }),
+    ...mapState("auth", { user: 'payload' }),
+    boards() {
+      const { data: boards } = this.findBoardsInStore({query: { ownerId: this.user.user._id }})
+      return boards;
     }
   },
+  mounted() {
+    this.findBoards({query: { ownerId: this.user.user._id }})
+  },
   methods: {
-    async createBoard () {
+    ...mapActions('boards', { findBoards: 'find' }),
+    async createBoard() {
       if (this.valid) {
         try {
           const { Boards } = this.$FeathersVuex.api;
           const newBoard = await new Boards(this.board).save();
-          console.log(newBoard)
+          console.log(newBoard);
         } catch (error) {
           console.error(error);
         }
