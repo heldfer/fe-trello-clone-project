@@ -8,6 +8,14 @@ import store from './store'
 
 Vue.use(Router);
 
+function isLoggedIn(to, from, next) {
+  store.dispatch('auth/authenticate').then(() => {
+    next();
+  }).catch(() => {
+    next('/login');
+  });
+}
+
 export default new Router({
   mode: 'history',
   routes: [
@@ -15,25 +23,13 @@ export default new Router({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
-      beforeEnter (to, from, next) {
-        if (!store.getters['auth/isAuthenticated']) {
-          next('/login')
-        } else {
-          next()
-        }
-      }
+      beforeEnter: isLoggedIn
     },
     {
       path: '/boards',
       name: 'boards',
       component: Boards,
-      beforeEnter (to, from, next) {
-        if (!store.getters['auth/isAuthenticated']) {
-          next('/login')
-        } else {
-          next()
-        }
-      }
+      beforeEnter: isLoggedIn
     },
     {
       path: '/signup',
