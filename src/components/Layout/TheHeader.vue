@@ -11,7 +11,7 @@
       <v-icon>{{ open ? 'menu_open' : 'menu' }}</v-icon>
     </v-btn>
     <v-toolbar-title class="capitalize">
-      {{ $route.name }}
+      {{ $route.name }} <slot name="title" />
     </v-toolbar-title>
     <v-col class="text-right">
       <v-btn

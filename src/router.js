@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from './views/Dashboard'
 import Boards from './views/Boards'
+import Board from './views/Board'
 import SignUp from './views/SignUp'
 import Login from './views/Login'
 import store from './store'
@@ -29,6 +30,12 @@ export default new Router({
       path: '/boards',
       name: 'boards',
       component: Boards,
+      beforeEnter: isLoggedIn
+    },
+    {
+      path: '/boards/:id',
+      name: 'board',
+      component: Board,
       beforeEnter: isLoggedIn
     },
     {
