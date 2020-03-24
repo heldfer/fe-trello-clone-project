@@ -1,29 +1,29 @@
 <template>
   <v-app id="inspire">
-    <Header
+    <the-header
       :open="open"
       name="Teste"
       @onSidebarBtnClick="open = !open"
     />
-    <Sidebar :open="open" />
+    <the-sidebar :open="open" />
     <v-content>
       <slot />
     </v-content>
-    <Footer />
+    <the-footer />
   </v-app>
 </template>
 
 <script>
-import Header from '@/components/Layout/Header'
-import Sidebar from '@/components/Layout/Sidebar'
-import Footer from '@/components/Layout/Footer'
+import TheHeader from '@/components/Layout/TheHeader'
+import TheSidebar from '@/components/Layout/TheSidebar'
+import TheFooter from '@/components/Layout/TheFooter'
 
 export default {
   name: 'Default',
   components: {
-    Header,
-    Sidebar,
-    Footer
+    TheHeader,
+    TheSidebar,
+    TheFooter
   },
   data: () => ({ open: true })
 }

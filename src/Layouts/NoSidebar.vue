@@ -3,17 +3,17 @@
     <v-content>
       <slot />
     </v-content>
-    <Footer />
+    <the-footer />
   </v-app>
 </template>
 
 <script>
-import Footer from '@/components/Layout/Footer'
+import TheFooter from '@/components/Layout/TheFooter'
 
 export default {
   name: 'NoSidebar',
   components: {
-    Footer
+    TheFooter
   }
 }
 </script>
