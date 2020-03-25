@@ -14,22 +14,14 @@
             v-if="!creating"
             v-model="valid"
             @keydown.prevent.enter
-            @submit.prevent="createBoard"
+            @submit.prevent="createList"
           >
             <v-text-field
-              v-model="board.name"
+              v-model="list.name"
               :rules="rules.required"
-              label="Name"
+              label="List Name"
               type="text"
             />
-
-            <v-text-field
-              v-model="board.background"
-              :rules="rules.required"
-              label="Background"
-              type="text"
-            />
-
             <v-spacer />
             <v-row class="justify-center">
               <v-btn
@@ -37,7 +29,7 @@
                 type="submit"
                 color="primary"
               >
-                Create Board
+                Create List
               </v-btn>
             </v-row>
           </v-form>
@@ -56,26 +48,26 @@
 import { mapState } from "vuex";
 
 export default {
-  name: "BoardsCreateForm",
-  data: () => ({
+  name: "BoardListsCreateForm",
+  data: vm => ({
     valid: false,
-    board: {
+    list: {
       name: "",
-      background: ""
+      boardId: vm.$route.params.id
     },
     rules: {
       required: [value => !!value.trim().length || "Is required"]
     }
   }),
   computed: {
-    ...mapState("boards", { creating: "iscreatePending" })
+    ...mapState("lists", { creating: "iscreatePending" })
   },
   methods: {
-    async createBoard() {
+    async createList() {
       if (this.valid) {
         try {
-          const { Boards } = this.$FeathersVuex.api;
-          const newBoard = await new Boards(this.board).save();
+          const { Lists } = this.$FeathersVuex.api;
+          const newList = await new Lists(this.list).save();
         } catch (error) {
           console.error(error);
         }

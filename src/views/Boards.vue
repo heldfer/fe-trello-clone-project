@@ -12,27 +12,7 @@
       align="center"
       justify="center"
     >
-      <v-card
-        class="mx-auto"
-        min-width="400"
-        max-width="400"
-        outlined
-      >
-        <v-expand-transition>
-          <div class="text-center">
-            <v-divider />
-
-            <v-card-text>
-              <boards-create-form />
-              <v-progress-circular
-                v-if="creating"
-                indeterminate
-                color="primary"
-              />
-            </v-card-text>
-          </div>
-        </v-expand-transition>
-      </v-card>
+      <boards-create-form />
     </v-row>
   </v-container>
 </template>
@@ -53,15 +33,17 @@ export default {
     ...mapState("boards", { creating: "iscreatePending" }),
     ...mapState("auth", { user: 'payload' }),
     boards() {
+      // Get the boards from the store
       const { data: boards } = this.findBoardsInStore({query: { ownerId: this.user.user._id }})
       return boards;
     }
   },
   created() {
-    this.findBoards({query: { ownerId: this.user.user._id }})
+    // Fetch the boards from the server and save them in the store
+    this.getBoards({query: { ownerId: this.user.user._id }})
   },
   methods: {
-    ...mapActions('boards', { findBoards: 'find' })
+    ...mapActions('boards', { getBoards: 'find' })
   }
 };
 </script>
