@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import BoardListsListItem from "./BoardListsListItem"
+import BoardListsListItem from "./ListsListItem"
 
 export default {
   name: "BoardListsList",

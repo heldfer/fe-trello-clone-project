@@ -19,8 +19,8 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
-import BoardsCreateForm from '../components/BoardsCreateForm'
-import BoardsList from '../components/BoardsList'
+import BoardsCreateForm from '../components/Boards/CreateForm'
+import BoardsList from '../components/Boards/List'
 
 export default {
   name: "Boards",
@@ -31,16 +31,16 @@ export default {
   computed: {
     ...mapGetters("boards", { findBoardsInStore: "find" }),
     ...mapState("boards", { creating: "iscreatePending" }),
-    ...mapState("auth", { user: 'payload' }),
+    ...mapState("auth", { payload: 'payload' }),
     boards() {
       // Get the boards from the store
-      const { data: boards } = this.findBoardsInStore({query: { ownerId: this.user.user._id }})
+      const { data: boards } = this.findBoardsInStore({query: { ownerId: this.payload.user._id }})
       return boards;
     }
   },
   created() {
     // Fetch the boards from the server and save them in the store
-    this.getBoards({query: { ownerId: this.user.user._id }})
+    this.getBoards({query: { ownerId: this.payload.user._id }})
   },
   methods: {
     ...mapActions('boards', { getBoards: 'find' })

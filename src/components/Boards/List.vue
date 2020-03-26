@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import BoardsListItem from "./BoardsListItem"
+import BoardsListItem from "./ListItem"
 
 export default {
   name: "BoardsList",

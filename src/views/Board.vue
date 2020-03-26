@@ -2,22 +2,18 @@
   <v-container
     fluid
   >
-    <!-- <v-row
-      align="center"
-      justify="center"
-    /> -->
     <h2>{{ name }}</h2>
     <v-row
       align="center"
       justify="center"
     >
-      <board-lists-list :lists="lists" />
+      <board-lists-create-form />
     </v-row>
     <v-row
       align="center"
       justify="center"
     >
-      <board-lists-create-form />
+      <board-lists-list :lists="lists" />
     </v-row>
 
     <v-progress-circular
@@ -29,8 +25,8 @@
 </template>
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex'
-import BoardListsCreateForm from '../components/BoardListsCreateForm'
-import BoardListsList from '../components/BoardListsList'
+import BoardListsCreateForm from '../components/Board/ListsCreateForm'
+import BoardListsList from '../components/Board/ListsList'
 
 export default {
   name: "Board",

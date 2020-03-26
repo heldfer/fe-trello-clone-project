@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import Default from '@/Layouts/Default'
-import NoSidebar from '@/Layouts/NoSidebar'
+import Default from '@/views/Layouts/Default'
+import NoSidebar from '@/views/Layouts/NoSidebar'
 
 export default {
   name: "App",
