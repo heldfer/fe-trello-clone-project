@@ -50,7 +50,8 @@ export default {
     try {
       const response = await this.getBoard(this.$route.params.id)
       this.getLists({query: { boardId: this.$route.params.id }})
-      console.log(response)
+      const cards = await this.getAllCardsFromThisBoard({query: { boardId: this.$route.params.id }})
+      console.log(cards)
       this.name = response.name
     } catch (error) {
       console.error(error)
@@ -58,7 +59,8 @@ export default {
   },
   methods: {
     ...mapActions("boards", { getBoard: "get" }),
-    ...mapActions("lists", { getLists: "find" })
+    ...mapActions("lists", { getLists: "find" }),
+    ...mapActions("cards", { getAllCardsFromThisBoard: "find" })
     
   }
 }

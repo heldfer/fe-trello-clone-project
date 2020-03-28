@@ -6,7 +6,9 @@
       cols="3"
     >
       <board-lists-list-item
+        :list-id="list._id"
         :name="list.name"
+        :list="list"
       />
     </v-col>
   </v-row>

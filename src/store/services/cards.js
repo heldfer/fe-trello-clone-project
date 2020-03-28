@@ -14,6 +14,7 @@ class Cards extends BaseModel {
       order: 0,
       archived: false,
       listId: null,
+      boardId: null,
       members: []
     }
   }
