@@ -66,8 +66,8 @@ export default {
     async createList() {
       if (this.valid) {
         try {
-          const { Lists } = this.$FeathersVuex.api;
-          const newList = await new Lists(this.list).save();
+          const { List } = this.$FeathersVuex.api;
+          const newList = await new List(this.list).save();
         } catch (error) {
           console.error(error);
         }

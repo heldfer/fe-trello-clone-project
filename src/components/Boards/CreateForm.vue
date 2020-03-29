@@ -74,8 +74,8 @@ export default {
     async createBoard() {
       if (this.valid) {
         try {
-          const { Boards } = this.$FeathersVuex.api;
-          const newBoard = await new Boards(this.board).save();
+          const { Board } = this.$FeathersVuex.api;
+          const newBoard = await new Board(this.board).save();
         } catch (error) {
           console.error(error);
         }

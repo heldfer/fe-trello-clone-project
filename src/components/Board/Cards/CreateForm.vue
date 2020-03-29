@@ -80,8 +80,8 @@ export default {
     async createCard () {
       if (this.valid) {
         try {
-          const { Cards } = this.$FeathersVuex.api;
-          const newList = await new Cards(this.card).save();
+          const { Card } = this.$FeathersVuex.api;
+          const newList = await new Card(this.card).save();
           this.card.title = ''
           this.onSaveCard()
         } catch (error) {
