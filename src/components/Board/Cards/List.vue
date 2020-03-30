@@ -10,18 +10,25 @@
           :show="newCard"
           :on-save-card="onSaveCard"
         />
-        
-        <v-list-item
-          v-for="card in cards"
-          @dragstart="onDragStart(card)"
-          draggable="true"
-          two-line
-          :key="card.id"
+        <v-list
+          dense
+          class="custom-list"
         >
-          <v-list-item-content>
-            <v-list-item-title v-html="card.title" />
-          </v-list-item-content>
-        </v-list-item>
+          <v-list-item-group color="primary">
+            <v-list-item
+              v-for="card in cards"
+              @click="setCardSelected(card); toggleCardShowDetails(true)"
+              @dragstart="onDragStart(card)"
+              draggable="true"
+              two-line
+              :key="card.id"
+            >
+              <v-list-item-content>
+                <v-list-item-title v-html="card.title" />
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
       </v-row>
     </v-container>
   </v-card>
@@ -70,7 +77,7 @@ export default {
   },
   methods: {
     ...mapActions("cards", { patchCard: "patch" }),
-    ...mapMutations("board", ["setDraggingZone"]),
+    ...mapMutations("board", ["setDraggingZone", "setCardSelected", "toggleCardShowDetails"]),
     onDragStart (card) {
       this.setDraggingZone({ list: this.list, card })
     },
@@ -83,3 +90,8 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.v-list {
+  width: 100%;
+}
+</style>

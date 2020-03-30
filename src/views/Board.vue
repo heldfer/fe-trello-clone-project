@@ -21,21 +21,29 @@
       indeterminate
       color="primary"
     />
+    {{ displaySidebar }}
+    <v-btn @click="displaySidebar = !displaySidebar">
+      toggle
+    </v-btn>
+    <board-sidebar :show="displaySidebar" />
   </v-container>
 </template>
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex'
 import BoardListsCreateForm from '../components/Board/ListsCreateForm'
 import BoardListsList from '../components/Board/ListsList'
+import BoardSidebar from '../components/Board/Sidebar'
 
 export default {
   name: "Board",
   components: {
     BoardListsCreateForm,
-    BoardListsList
+    BoardListsList,
+    BoardSidebar
   },
   data: () => ({
-    name: ""
+    name: "",
+    displaySidebar: false
   }),
   computed: {
     ...mapState("boards", { loadingBoard: "isGetPending" }),

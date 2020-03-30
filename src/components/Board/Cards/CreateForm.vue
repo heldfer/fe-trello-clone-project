@@ -81,7 +81,7 @@ export default {
       if (this.valid) {
         try {
           const { Card } = this.$FeathersVuex.api;
-          const newList = await new Card(this.card).save();
+          await new Card(this.card).save();
           this.card.title = ''
           this.onSaveCard()
         } catch (error) {
